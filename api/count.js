@@ -3,15 +3,17 @@ const COUNT_PAGE_ID = process.env.COUNT_PAGE_ID;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'no-store');
 
   const pageRes = await fetch(`https://api.notion.com/v1/pages/${COUNT_PAGE_ID}`, {
     headers: {
       'Authorization': `Bearer ${NOTION_TOKEN}`,
       'Notion-Version': '2022-06-28',
+      'Cache-Control': 'no-cache',
     }
   });
   const page = await pageRes.json();
-  const current = page.properties?.['カウント']?.number || 0;
+  const current = page.properties?.['上限金額']?.number || 0;
 
   if (req.method === 'POST') {
     const newCount = current + 1;
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        properties: { 'カウント': { number: newCount } }
+        properties: { '上限金額': { number: newCount } }
       })
     });
     res.json({ count: newCount });
