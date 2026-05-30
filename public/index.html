@@ -95,8 +95,7 @@ function render() {
 
 (async () => {
   try {
-    await fetch('/api/count', { method: 'POST' });
-    const res = await fetch('/api/count');
+    const res = await fetch('/api/count', { method: 'POST' });
     const data = await res.json();
     document.getElementById('access-count').textContent = data.count.toLocaleString();
   } catch(e) {}
