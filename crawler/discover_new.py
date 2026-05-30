@@ -1,4 +1,5 @@
 import urllib.request, urllib.parse, json, os, re
+from html.parser import HTMLParser
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 DB_ID = os.environ["NOTION_DB_ID"]
@@ -10,12 +11,10 @@ headers_notion = {
     "Notion-Version": "2022-06-28"
 }
 
-# 各自治体の補助金カテゴリページ（実在確認済み）
 TARGETS = [
     {"area": "横浜市", "url": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/jutaku/sien/"},
     {"area": "横浜市", "url": "https://www.city.yokohama.lg.jp/business/kigyoshien/keieishien/"},
     {"area": "川崎市", "url": "https://www.city.kawasaki.jp/280/category/30-0-0-0-0-0-0-0-0-0.html"},
-    {"area": "鎌倉市", "url": "https://www.city.kamakura.kanagawa.jp/kankyo/saiseihojyo.html"},
     {"area": "鎌倉市", "url": "https://www.city.kamakura.kanagawa.jp/kosodate/"},
     {"area": "藤沢市", "url": "https://www.city.fujisawa.kanagawa.jp/kodomo-se/teate_kyufu.html"},
     {"area": "横須賀市", "url": "https://www.city.yokosuka.kanagawa.jp/sangyo/keizai/shinko/index.html"},
@@ -55,9 +54,16 @@ def fetch_page(url):
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=10) as res:
-            return res.read().decode("utf-8", errors="ignore")
+            html = res.read().decode("utf-8", errors="ignore")
+        # タイトルと本文テキストを抽出
+        title_match = re.search(r'<title[^>]*>([^<]+)</title>', html, re.IGNORECASE)
+        title = title_match.group(1).strip() if title_match else ""
+        # HTMLタグを除去してテキスト取得（最初の500文字）
+        text = re.sub(r'<[^>]+>', ' ', html)
+        text = re.sub(r'\s+', ' ', text).strip()[:500]
+        return title, text, html
     except:
-        return ""
+        return "", "", ""
 
 def extract_links(html, base_url):
     links = []
@@ -71,23 +77,25 @@ def extract_links(html, base_url):
             link = f"{parsed_base.scheme}://{parsed_base.netloc}{href}"
         else:
             continue
-        # 同じドメインのページのみ
         if parsed_base.netloc in link and link not in links:
             links.append(link)
     return links
 
-def ask_claude(url, area):
-    prompt = f"""URLを見て、これが{area}の個人・事業者向け補助金・助成金・支援金・給付金のページかどうか判断してください。
+def ask_claude(url, title, text, area):
+    prompt = f"""以下のページが{area}の補助金・助成金・支援金・給付金・奨学金のページかどうか判断してください。
 
 URL: {url}
+タイトル: {title}
+本文（抜粋）: {text[:300]}
 
 判断基準：
-- 補助金・助成金・支援金・給付金・奨学金のページ → YES
-- 申請・手続きページ → YES
-- トップページ・お知らせ・採用・議会 → NO
+- 個人または事業者が申請できる補助金・助成金・支援金・給付金・奨学金 → YES
+- 募集終了・廃止済みの制度 → NO
+- トップページ・お知らせ・採用・議会・統計 → NO
+- 補助金と無関係なページ → NO
 
-JSON形式のみで回答（他の文章不要）：
-{{"is_subsidy": true/false, "title": "制度名（わからなければURLから推測）", "category": "事業者向け/子育て・教育/住まい・住宅/介護・福祉のいずれか", "target": "個人/事業者"}}"""
+JSON形式のみで回答：
+{{"is_subsidy": true/false, "title": "制度の正式名称", "category": "事業者向け/子育て・教育/住まい・住宅/介護・福祉のいずれか", "target": "個人/事業者"}}"""
 
     data = json.dumps({
         "model": "claude-haiku-4-5-20251001",
@@ -108,10 +116,12 @@ JSON形式のみで回答（他の文章不要）：
         with urllib.request.urlopen(req, timeout=15) as res:
             result = json.loads(res.read())
             text = result["content"][0]["text"].strip()
-            text = re.search(r'\{.*\}', text, re.DOTALL).group()
-            return json.loads(text)
+            match = re.search(r'\{.*\}', text, re.DOTALL)
+            if match:
+                return json.loads(match.group())
     except:
-        return None
+        pass
+    return None
 
 def add_to_notion(title, area, category, target, url):
     props = {
@@ -130,31 +140,63 @@ def add_to_notion(title, area, category, target, url):
     )
     urllib.request.urlopen(req)
 
-# メイン処理
+# まず間違って追加されたデータを削除
+print("不正確なデータを削除中...")
+req = urllib.request.Request(
+    f"https://api.notion.com/v1/databases/{DB_ID}/query",
+    data=json.dumps({"page_size": 100}).encode(),
+    headers=headers_notion, method="POST"
+)
+with urllib.request.urlopen(req) as res:
+    pages = json.loads(res.read())["results"]
+
+# 今回追加された疑わしいデータを削除（タイトルが短すぎるか汎用的なもの）
+deleted = 0
+for page in pages:
+    t = page["properties"]["名前"]["title"]
+    if not t:
+        continue
+    title = t[0]["text"]["content"]
+    if title in ["産業振興補助金・助成金", "子育て支援", "補助金・助成金・支援金"]:
+        req2 = urllib.request.Request(
+            f"https://api.notion.com/v1/pages/{page['id']}",
+            data=json.dumps({"archived": True}).encode(),
+            headers=headers_notion, method="PATCH"
+        )
+        urllib.request.urlopen(req2)
+        deleted += 1
+        print(f"削除: {title}")
+
+print(f"削除完了: {deleted}件")
+
+# 新規発見
 existing_urls = get_existing_urls()
-print(f"既存URL数: {len(existing_urls)}")
+print(f"\n既存URL数: {len(existing_urls)}")
 
 added = 0
 for target in TARGETS:
-    print(f"\n{target['area']} {target['url'][-30:]}を巡回中...")
-    html = fetch_page(target["url"])
+    print(f"\n{target['area']}を巡回中...")
+    title_page, text_page, html = fetch_page(target["url"])
     if not html:
         print("取得失敗")
         continue
 
     links = extract_links(html, target["url"])
     new_links = [l for l in links if l not in existing_urls]
-    new_links = list(set(new_links))[:5]  # 各ページ最大5件
-    print(f"新規リンク候補: {len(new_links)}件")
+    new_links = list(set(new_links))[:5]
+    print(f"新規候補: {len(new_links)}件")
 
     for link in new_links:
-        result = ask_claude(link, target["area"])
+        link_title, link_text, _ = fetch_page(link)
+        if not link_title:
+            continue
+        result = ask_claude(link, link_title, link_text, target["area"])
         if result and result.get("is_subsidy"):
             try:
                 add_to_notion(result["title"], target["area"], result["category"], result["target"], link)
                 print(f"✓ 追加: {result['title'][:40]}")
                 added += 1
             except Exception as e:
-                print(f"✗ 登録失敗: {e}")
+                print(f"✗ 失敗: {e}")
 
 print(f"\n新規追加: {added}件")
