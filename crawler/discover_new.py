@@ -21,8 +21,10 @@ TARGETS = [
     {"area": "平塚市", "url": "https://www.city.hiratsuka.kanagawa.jp/sangyo/page33_00038.html"},
     {"area": "相模原市", "url": "https://www.city.sagamihara.kanagawa.jp/kurashi/1026489/sumai/1026513/index.html"},
     {"area": "厚木市", "url": "https://www.city.atsugi.kanagawa.jp/kosodate_kyoiku/teate_josei/index.html"},
+    {"area": "茅ヶ崎市", "url": "https://www.city.chigasaki.kanagawa.jp/sangyo/1043316/index.html"},
     {"area": "茅ヶ崎市", "url": "https://www.city.chigasaki.kanagawa.jp/kosodate/1024750/index.html"},
-    {"area": "大和市", "url": "https://www.city.yamato.lg.jp/gyosei/soshik/40/sangyo/kigyoushien/hojokintou/4242.html"},
+    {"area": "大和市", "url": "https://www.city.yamato.lg.jp/gyosei/soshik/40/sangyo/shogyo/shien_seibi_todokede/4243.html"},
+    {"area": "大和市", "url": "https://www.city.yamato.lg.jp/section/ehon_no_machi/age/B/B00010.html"},
     {"area": "三浦市", "url": "https://www.city.miura.kanagawa.jp/shigoto_sangyo_machizukuri/sangyoshinko/6/shoukou2/index.html"},
     {"area": "逗子市", "url": "https://www.city.zushi.kanagawa.jp/kurashi/gomirecycle/1002120/index.html"},
 ]
