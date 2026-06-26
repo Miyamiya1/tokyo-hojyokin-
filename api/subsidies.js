@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   const subsidies = all.map(page => ({
     id: page.id,
     title: page.properties['名前']?.title[0]?.text?.content || '',
-    target: page.properties['対象']?.select?.name || '',
+    target: page.properties['対象']?.rich_text?.[0]?.text?.content || '',
     category: page.properties['カテゴリ']?.select?.name || '',
     area: page.properties['市区町村']?.rich_text[0]?.text?.content || '',
     summary: page.properties['概要']?.rich_text[0]?.text?.content || '',

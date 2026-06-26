@@ -12,44 +12,36 @@ headers_notion = {
 }
 
 TARGETS = [
-    {"area": "横浜市", "url": "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/jutaku/sien/"},
-    {"area": "横浜市", "url": "https://www.city.yokohama.lg.jp/business/kigyoshien/keieishien/"},
-    {"area": "川崎市", "url": "https://www.city.kawasaki.jp/280/category/30-0-0-0-0-0-0-0-0-0.html"},
-    {"area": "鎌倉市", "url": "https://www.city.kamakura.kanagawa.jp/kosodate/"},
-    {"area": "藤沢市", "url": "https://www.city.fujisawa.kanagawa.jp/kodomo-se/teate_kyufu.html"},
-    {"area": "横須賀市", "url": "https://www.city.yokosuka.kanagawa.jp/sangyo/keizai/shinko/index.html"},
-    {"area": "平塚市", "url": "https://www.city.hiratsuka.kanagawa.jp/sangyo/page33_00038.html"},
-    {"area": "相模原市", "url": "https://www.city.sagamihara.kanagawa.jp/kurashi/1026489/sumai/1026513/index.html"},
-    {"area": "厚木市", "url": "https://www.city.atsugi.kanagawa.jp/kosodate_kyoiku/teate_josei/index.html"},
-    {"area": "茅ヶ崎市", "url": "https://www.city.chigasaki.kanagawa.jp/sangyo/1043316/index.html"},
-    {"area": "茅ヶ崎市", "url": "https://www.city.chigasaki.kanagawa.jp/kosodate/1024750/index.html"},
-    {"area": "大和市", "url": "https://www.city.yamato.lg.jp/gyosei/soshik/40/sangyo/shogyo/shien_seibi_todokede/4243.html"},
-    {"area": "大和市", "url": "https://www.city.yamato.lg.jp/section/ehon_no_machi/age/B/B00010.html"},
-    {"area": "三浦市", "url": "https://www.city.miura.kanagawa.jp/shigoto_sangyo_machizukuri/sangyoshinko/6/shoukou2/index.html"},
-    {"area": "逗子市", "url": "https://www.city.zushi.kanagawa.jp/kurashi/gomirecycle/1002120/index.html"},
-    {"area": "秦野市", "url": "https://www.city.hadano.kanagawa.jp/www/genre/0000000000000/1000000000261/index.html"},
-    {"area": "伊勢原市", "url": "https://www.city.isehara.kanagawa.jp/docs/2013111500015/"},
-    {"area": "海老名市", "url": "https://www.city.ebina.kanagawa.jp/kurashi/shien/josei/index.html"},
-    {"area": "座間市", "url": "https://www.city.zama.kanagawa.jp/www/genre/0000000000000/1000000000150/index.html"},
-    {"area": "綾瀬市", "url": "https://www.city.ayase.kanagawa.jp/kurashi/shien/josei/index.html"},
-    {"area": "南足柄市", "url": "https://www.city.minamiashigara.kanagawa.jp/kurashi/shien/"},
-    {"area": "小田原市", "url": "https://www.city.odawara.kanagawa.jp/field/edu-ch/kosodate/assistance/"},
-    {"area": "小田原市", "url": "https://www.city.odawara.kanagawa.jp/field/industry/industrial_promotion/p29957.html"},
-    {"area": "箱根町", "url": "https://www.town.hakone.kanagawa.jp/www/contents/1100000002059/index.html"},
-    {"area": "湯河原町", "url": "https://www.town.yugawara.kanagawa.jp/soshiki/17/28755.html"},
-    {"area": "松田町", "url": "https://town.matsuda.kanagawa.jp/site/teiju-syoushi/"},
-    {"area": "山北町", "url": "https://www.town.yamakita.kanagawa.jp/0000006711.html"},
-    {"area": "中井町", "url": "https://www.town.nakai.kanagawa.jp/soshiki/kikakukaseisakuhan/sumai/1/1/404.html"},
-    {"area": "大井町", "url": "https://www.town.oi.kanagawa.jp/site/iju/"},
-    {"area": "大磯町", "url": "https://www.town.oiso.kanagawa.jp/kurashi/jutaku/"},
-    {"area": "二宮町", "url": "https://www.town.ninomiya.kanagawa.jp/0000000113.html"},
-    {"area": "寒川町", "url": "https://www.town.samukawa.kanagawa.jp/kurashi/shien/"},
-    {"area": "清川村", "url": "https://www.town.kiyokawa.kanagawa.jp/soshiki/sangyokanko/akiyasumai/1114.html"},
-    {"area": "愛川町", "url": "https://www.town.aikawa.kanagawa.jp/kurashi/shien/"},
-    {"area": "葉山町", "url": "https://www.town.hayama.lg.jp/soshiki/seisaku/3202.html"},
-    {"area": "寒川町", "url": "https://www.town.samukawa.kanagawa.jp/kurashi/shien/josei/"},
-    {"area": "神奈川県", "url": "https://www.pref.kanagawa.jp/docs/f2g/cnt/f4085/index.html"},
-    {"area": "神奈川県", "url": "https://www.pref.kanagawa.jp/docs/v3e/jyosei/gakuhisien/"},
+    {"area": "新宿区", "url": "https://www.city.shinjuku.lg.jp/kodomo/"},
+    {"area": "新宿区", "url": "https://www.city.shinjuku.lg.jp/sangyo/"},
+    {"area": "渋谷区", "url": "https://www.city.shibuya.tokyo.jp/kodomo/"},
+    {"area": "渋谷区", "url": "https://www.city.shibuya.tokyo.jp/sangyo/"},
+    {"area": "港区", "url": "https://www.city.minato.tokyo.jp/kodomo/kate/teate/index.html"},
+    {"area": "世田谷区", "url": "https://www.city.setagaya.lg.jp/mokuji/kodomo/"},
+    {"area": "杉並区", "url": "https://www.city.suginami.tokyo.jp/guide/kosodate/"},
+    {"area": "板橋区", "url": "https://www.city.itabashi.tokyo.jp/kosodate/"},
+    {"area": "足立区", "url": "https://www.city.adachi.tokyo.jp/kosodate/"},
+    {"area": "江戸川区", "url": "https://www.city.edogawa.tokyo.jp/kosodate/"},
+    {"area": "葛飾区", "url": "https://www.city.katsushika.lg.jp/kosodate/"},
+    {"area": "豊島区", "url": "https://www.city.toshima.lg.jp/kosodate/"},
+    {"area": "荒川区", "url": "https://www.city.arakawa.tokyo.jp/kosodate/"},
+    {"area": "中野区", "url": "https://www.city.tokyo-nakano.lg.jp/kosodate/"},
+    {"area": "中央区", "url": "https://www.city.chuo.lg.jp/kosodate/kosodate/teatejosei/index.html"},
+    {"area": "千代田区", "url": "https://www.city.chiyoda.lg.jp/kosodate/"},
+    {"area": "立川市", "url": "https://www.city.tachikawa.lg.jp/kosodate/"},
+    {"area": "東京都", "url": "https://www.fukushi.metro.tokyo.lg.jp/kodomo/kosodate/teate/index.html"},
+    {"area": "品川区", "url": "https://www.city.shinagawa.tokyo.jp/PC/kodomo/kodomo-kosodate/hpg000005147.html"},
+    {"area": "目黒区", "url": "https://www.city.meguro.tokyo.jp/kurashi/shien_te/jidou/"},
+    {"area": "大田区", "url": "https://www.city.ota.tokyo.jp/seikatsu/kodomo/teate/"},
+    {"area": "北区", "url": "https://www.city.kita.tokyo.jp/k-shien/kodomo/teate/index.html"},
+    {"area": "墨田区", "url": "https://www.city.sumida.lg.jp/kuseijoho/sumida_info/sonota/kosodate.html"},
+    {"area": "台東区", "url": "https://www.city.taito.lg.jp/kosodateshien/teate_josei/index.html"},
+    {"area": "文京区", "url": "https://www.city.bunkyo.lg.jp/hukushi/kosodate/teate/"},
+    {"area": "江東区", "url": "https://www.city.koto.lg.jp/390101/"},
+    {"area": "練馬区", "url": "https://www.city.nerima.tokyo.jp/kosodatekyoiku/kosodate/teate/"},
+    {"area": "八王子市", "url": "https://www.city.hachioji.tokyo.jp/kurashi/kosodate/003/index.html"},
+    {"area": "武蔵野市", "url": "https://www.city.musashino.lg.jp/kurashi_guide/kosodate_kyoiku/"},
+    {"area": "町田市", "url": "https://www.city.machida.tokyo.jp/kosodate/teate/"},
 ]
 
 def get_existing_urls():
@@ -107,20 +99,28 @@ def extract_links(html, base_url):
     return links
 
 def ask_claude(url, title, text, area):
-    prompt = f"""以下のページが{area}の補助金・助成金・支援金・給付金・奨学金のページかどうか判断してください。
+    prompt = f"""以下のページが{area}の補助金・助成金・支援金・給付金・奨学金・手当のページかどうか判断してください。
 
 URL: {url}
 タイトル: {title}
-本文（抜粋）: {text[:300]}
+本文（抜粋）: {text[:500]}
 
 判断基準：
-- 個人または事業者が申請できる補助金・助成金・支援金・給付金・奨学金 → YES
-- 募集終了・廃止済みの制度 → NO
-- トップページ・お知らせ・採用・議会・統計 → NO
-- 補助金と無関係なページ → NO
+- 個人または事業者が申請・受給できる補助金・助成金・支援金・給付金・奨学金・手当・医療費助成 → YES
+- 制度の一覧ページや案内ページ → YES
+- 募集終了・廃止済みの制度のみのページ → NO
+- トップページ・お知らせ・採用・議会・統計・イベント → NO
+- 補助金・支援と完全に無関係なページ → NO
+
+カテゴリの選択基準：
+- 子育て・教育：児童手当、医療費助成、奨学金、保育、幼児教育など
+- 介護・福祉：介護保険、障害者支援、高齢者支援など
+- 住まい・住宅：住宅取得、リフォーム、移住支援など
+- 事業者向け：中小企業、創業、雇用支援など
+- その他支援：上記に当てはまらない支援制度
 
 JSON形式のみで回答：
-{{"is_subsidy": true/false, "title": "制度の正式名称", "category": "事業者向け/子育て・教育/住まい・住宅/介護・福祉のいずれか", "target": "個人/事業者"}}"""
+{{"is_subsidy": true/false, "title": "制度の正式名称", "category": "事業者向け/子育て・教育/住まい・住宅/介護・福祉/その他支援のいずれか", "target": "個人/事業者/個人・事業者"}}"""
 
     data = json.dumps({
         "model": "claude-haiku-4-5-20251001",
@@ -151,7 +151,7 @@ JSON形式のみで回答：
 def add_to_notion(title, area, category, target, url):
     props = {
         "名前": {"title": [{"text": {"content": title}}]},
-        "対象": {"select": {"name": target}},
+        "対象": {"rich_text": [{"text": {"content": target}}]},
         "カテゴリ": {"select": {"name": category}},
         "市区町村": {"rich_text": [{"text": {"content": area}}]},
         "公式URL": {"url": url}

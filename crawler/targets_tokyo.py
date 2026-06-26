@@ -1,0 +1,38 @@
+TARGETS = [
+    {"area": "新宿区", "url": "https://www.city.shinjuku.lg.jp/kodomo/"},
+    {"area": "新宿区", "url": "https://www.city.shinjuku.lg.jp/sangyo/"},
+    {"area": "渋谷区", "url": "https://www.city.shibuya.tokyo.jp/kodomo/"},
+    {"area": "渋谷区", "url": "https://www.city.shibuya.tokyo.jp/sangyo/"},
+    {"area": "港区", "url": "https://www.city.minato.tokyo.jp/kodomo/kate/teate/index.html"},
+    {"area": "世田谷区", "url": "https://www.city.setagaya.lg.jp/mokuji/kodomo/"},
+    {"area": "杉並区", "url": "https://www.city.suginami.tokyo.jp/guide/kosodate/"},
+    {"area": "板橋区", "url": "https://www.city.itabashi.tokyo.jp/kosodate/"},
+    {"area": "足立区", "url": "https://www.city.adachi.tokyo.jp/kosodate/"},
+    {"area": "江戸川区", "url": "https://www.city.edogawa.tokyo.jp/kosodate/"},
+    {"area": "葛飾区", "url": "https://www.city.katsushika.lg.jp/kosodate/"},
+    {"area": "豊島区", "url": "https://www.city.toshima.lg.jp/kosodate/"},
+    {"area": "荒川区", "url": "https://www.city.arakawa.tokyo.jp/kosodate/"},
+    {"area": "中野区", "url": "https://www.city.tokyo-nakano.lg.jp/kosodate/"},
+    {"area": "中央区", "url": "https://www.city.chuo.lg.jp/kosodate/kosodate/teatejosei/index.html"},
+    {"area": "千代田区", "url": "https://www.city.chiyoda.lg.jp/kosodate/"},
+    {"area": "立川市", "url": "https://www.city.tachikawa.lg.jp/kosodate/"},
+    {"area": "東京都", "url": "https://www.fukushi.metro.tokyo.lg.jp/kodomo/kosodate/teate/index.html"},
+]
+
+# 追加URL
+EXTRA_TARGETS = [
+    {"area": "東京都", "url": "https://www.fukushi.metro.tokyo.lg.jp/kodomo/kosodate/"},
+    {"area": "東京都", "url": "https://www.metro.tokyo.lg.jp/tosei/hodohappyo/press/2026/index.html"},
+    {"area": "品川区", "url": "https://www.city.shinagawa.tokyo.jp/PC/kodomo/kodomo-kosodate/hpg000005147.html"},
+    {"area": "目黒区", "url": "https://www.city.meguro.tokyo.jp/kurashi/shien_te/jidou/"},
+    {"area": "大田区", "url": "https://www.city.ota.tokyo.jp/seikatsu/kodomo/teate/"},
+    {"area": "北区", "url": "https://www.city.kita.tokyo.jp/k-shien/kodomo/teate/index.html"},
+    {"area": "墨田区", "url": "https://www.city.sumida.lg.jp/kuseijoho/sumida_info/sonota/kosodate.html"},
+    {"area": "台東区", "url": "https://www.city.taito.lg.jp/kosodateshien/teate_josei/index.html"},
+    {"area": "文京区", "url": "https://www.city.bunkyo.lg.jp/hukushi/kosodate/teate/"},
+    {"area": "江東区", "url": "https://www.city.koto.lg.jp/390101/"},
+    {"area": "練馬区", "url": "https://www.city.nerima.tokyo.jp/kosodatekyoiku/kosodate/teate/"},
+    {"area": "八王子市", "url": "https://www.city.hachioji.tokyo.jp/kurashi/kosodate/003/index.html"},
+    {"area": "武蔵野市", "url": "https://www.city.musashino.lg.jp/kurashi_guide/kosodate_kyoiku/"},
+    {"area": "町田市", "url": "https://www.city.machida.tokyo.jp/kosodate/teate/"},
+]
