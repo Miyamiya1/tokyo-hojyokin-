@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>補助金サーチ｜東京版</title>
-<meta name="description" content="東京都の補助金・助成金を地域・目的別に簡単検索。全62区市町村の子育て・住宅・事業者向け補助金210件以上を掲載。">
-<meta name="keywords" content="東京 補助金,東京都 助成金,子育て 補助金 東京,住宅 補助金 東京,事業者 補助金 東京,介護 補助金 東京,福祉 補助金 東京,区市町村 補助金">
+<title>補助金サーチ東京｜東京都・23区・市の補助金・助成金を検索</title>
+<meta name="description" content="東京都と都内の区・市の補助金・助成金を、地域・目的別に検索できます。子育て・住まい・省エネ・事業者向けなど約270件を掲載。蓄電池や窓の断熱リフォームなど、令和8年度の主な補助金の解説ページもあります。">
+<meta name="keywords" content="東京 補助金,東京 助成金,東京都 蓄電池 補助金,東京都 窓 補助金,子育て 補助金 東京,住宅 補助金 東京,事業者 補助金 東京,介護 補助金 東京">
 <link rel="canonical" href="https://tokyo-hojyokin.vercel.app">
 <meta property="og:title" content="補助金サーチ｜東京版">
-<meta property="og:description" content="東京都の補助金・助成金を地域・目的別に簡単検索。全62区市町村対応。">
+<meta property="og:description" content="東京都と都内の区・市の補助金・助成金を地域・目的別に検索できます。">
 <meta property="og:url" content="https://tokyo-hojyokin.vercel.app">
 <meta property="og:type" content="website">
 <meta name="google-site-verification" content="B70xPa3aG6cSZNDG-pJrhlkDB1Lvygu6s8ZiKSHFy_c" />
@@ -37,13 +37,23 @@ input { flex: 1; min-width: 200px; }
 .card-link { display: inline-block; font-size: 12px; color: #1a5276; text-decoration: none; border: 1px solid #1a5276; padding: 4px 10px; border-radius: 6px; }
 .card-link:hover { background: #1a5276; color: white; }
 .loading { text-align: center; padding: 40px; color: #666; }
+.guide { background: white; margin: 16px 20px 0; padding: 14px 18px; border-radius: 12px; border: 1px solid #e5e5e5; }
+.guide h2 { font-size: 15px; color: #1a5276; margin-bottom: 6px; }
+.guide a { display: block; font-size: 14px; color: #1a5276; padding: 4px 0; }
 </style>
 </head>
 <body>
 <header>
-  <h1>🔍 補助金サーチ｜東京版</h1>
-  <p>東京都の補助金・助成金を地域・目的別に検索できます</p>
+  <h1>🔍 補助金サーチ東京</h1>
+  <p>東京都と都内の区・市の補助金・助成金を、地域・目的別に検索できます</p>
 </header>
+<section class="guide">
+  <h2>東京都の住まい・省エネ補助金(令和8年度)の解説</h2>
+  <a href="/hojyo/tokyo-chikudenchi-r8.html">蓄電池の補助金:1kWhあたり10万円、上限120万円</a>
+  <a href="/hojyo/tokyo-mado-door-r8.html">窓・ドアの断熱リフォーム補助金:上限200万円(断熱防犯窓は300万円)</a>
+  <a href="/hojyo/tokyo-dannetsu-yokuso-r8.html">断熱材・高断熱浴槽の補助金:断熱材は1/3・上限100万円</a>
+  <a href="/hojyo/">住まい・省エネ補助金の一覧 →</a>
+</section>
 <div class="filters">
   <input type="text" id="search" placeholder="🔍 キーワードで検索（例：移住、住宅、子育て）">
   <select id="target"><option value="">対象：すべて</option><option value="個人">個人</option><option value="事業者">事業者</option></select>

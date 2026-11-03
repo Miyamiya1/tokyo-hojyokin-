@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tokyo-hojyokin.vercel.app/sitemap.xml
