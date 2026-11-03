@@ -124,9 +124,28 @@ h1{font-size:22px;line-height:1.5;margin-bottom:6px}.catch{font-size:16px;color:
 table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:8px 6px;border-bottom:1px solid #eee;font-size:14px}th{width:28%;color:#1a5276;white-space:nowrap}
 h2{font-size:17px;margin:4px 0 8px;color:#1a5276}ul{padding-left:1.2em}li{font-size:14px;margin:2px 0}
 .src{font-size:13px;color:#555}.src a{color:#1a5276}.note{font-size:12px;color:#777}
+.pr{display:inline-block;font-size:11px;color:#777;border:1px solid #bbb;border-radius:4px;padding:0 6px;margin-bottom:4px}.ad ul{padding-left:0}.ad li{list-style:none;margin:6px 0}.ad a{color:#1a5276;font-weight:600}
 .btn{display:inline-block;background:#1a5276;color:#fff;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px}
 .list a{display:block;padding:10px 0;border-bottom:1px solid #eee;color:#1a5276;text-decoration:none}.list span{display:block;font-size:13px;color:#555}
 footer{max-width:820px;margin:0 auto;padding:20px;font-size:12px;color:#777}"""
+
+# A8.netの広告(テキスト広告・通常広告用)。コードはNotion「A8広告コード」と同じ。1x1の計測画像は消さない
+AFFILIATE = {
+    "battery": [
+        '<a href="https://px.a8.net/svt/ejp?a8mat=4BGBN3+FH9R02+2AG2+15S78I" rel="nofollow">蓄電池の無料一括比較サイト【タイナビ蓄電池】</a>'
+        '<img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=4BGBN3+FH9R02+2AG2+15S78I" alt="">',
+        '<a href="https://px.a8.net/svt/ejp?a8mat=4BGBN3+FGOBEA+5CRG+5YJRM" rel="nofollow">【エコ×エネの相談窓口】完全無料の蓄電池一括見積もり</a>'
+        '<img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4BGBN3+FGOBEA+5CRG+5YJRM" alt="">',
+    ],
+    "reform": [
+        '<a href="https://px.a8.net/svt/ejp?a8mat=4BGBN3+FJNHF6+46CI+60OXE" rel="nofollow">リフォーム比較プロで見積もり比較</a>'
+        '<img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4BGBN3+FJNHF6+46CI+60OXE" alt="">',
+    ],
+}
+AD_LEAD = {
+    "battery": "助成額は税抜の対象経費が上限なので、設置費用そのものを抑えることも大切です。複数の業者の見積もりを無料で比べられるサービスがあります。",
+    "reform": "助成額は製品と工事内容で決まるため、工事費は業者によって差が出やすいところです。複数の業者の見積もりを無料で比べられるサービスがあります。",
+}
 
 e = html.escape
 
@@ -141,6 +160,12 @@ def page(p):
         {"@type": "ListItem", "position": 1, "name": "補助金サーチ東京", "item": SITE + "/"},
         {"@type": "ListItem", "position": 2, "name": "住まい・省エネの補助金", "item": SITE + "/hojyo/"},
         {"@type": "ListItem", "position": 3, "name": p["title"]}]}
+    kind = p.get("affiliate_kind")
+    links = AFFILIATE.get(kind, [])
+    pr_note = '<p class="note">※このページにはアフィリエイト広告(PR)が含まれます。</p>' if links else ""
+    ad = (f'<section class="box ad"><span class="pr">PR</span><h2>工事の前に見積もりを比べる</h2><p style="font-size:14px">{e(AD_LEAD[kind])}</p>'
+          f'<ul>{"".join(f"<li>{x}</li>" for x in links)}</ul>'
+          '<p class="note">※広告リンクです。補助金の対象になる機器・工事か、申請に必要な書類を用意してもらえるかは、見積もりのときに業者へ確認してください。</p></section>') if links else ""
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(p['title'])}|{e(p['catch'])}|補助金サーチ東京</title>
@@ -155,10 +180,11 @@ def page(p):
 <nav class="crumb"><a href="/">トップ</a> › <a href="/hojyo/">住まい・省エネの補助金</a> › {e(p['title'])}</nav>
 <h1>{e(p['title'])}</h1>
 <p class="catch">{e(p['catch'])}</p>
+{pr_note}
 <section class="box"><table>{rows}</table></section>
 {secs}
 <section class="box"><h2>問い合わせ先</h2><p style="font-size:14px">{e(p['contact'])}</p></section>
-<!-- AFFILIATE_SLOT:{p['affiliate_kind']} (提携承認後に見積もり比較の案内を入れる) -->
+{ad}
 <section class="box src"><h2>出典・最終確認日</h2>
 <p>出典:<a href="{e(p['official_url'])}" target="_blank" rel="noopener">{e(p['official_name'])}({e(p['org'])})</a></p>
 <p>最終確認日:{CHECKED}</p>
