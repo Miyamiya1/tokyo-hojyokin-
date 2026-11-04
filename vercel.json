@@ -1,8 +1,14 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/sitemap.xml",
-      "destination": "/api/sitemap.xml"
+      "source": "/hojyo/:slug.html",
+      "destination": "https://tokyo-hojyokin.pages.dev/hojyo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://tokyo-hojyokin.pages.dev/:path*",
+      "permanent": true
     }
   ]
 }
