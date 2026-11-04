@@ -9,7 +9,7 @@ from datetime import date
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 PUB = os.path.join(ROOT, "public")
-SITE = "https://tokyo-hojyokin.vercel.app"
+SITE = "https://tokyo-hojyokin.pages.dev"
 CHECKED = "2026-11-02"
 os.makedirs(os.path.join(PUB, "hojyo"), exist_ok=True)
 
@@ -155,7 +155,7 @@ def page(p):
     secs = "".join(f'<section class="box"><h2>{e(h)}</h2><ul>{"".join(f"<li>{e(x)}</li>" for x in items)}</ul></section>' for h, items in p["sections"])
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p["description"],
           "dateModified": CHECKED, "publisher": {"@type": "Organization", "name": "補助金サーチ東京"},
-          "mainEntityOfPage": f"{SITE}/hojyo/{p['slug']}.html"}
+          "mainEntityOfPage": f"{SITE}/hojyo/{p['slug']}"}
     bc = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "補助金サーチ東京", "item": SITE + "/"},
         {"@type": "ListItem", "position": 2, "name": "住まい・省エネの補助金", "item": SITE + "/hojyo/"},
@@ -170,7 +170,7 @@ def page(p):
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(p['title'])}|{e(p['catch'])}|補助金サーチ東京</title>
 <meta name="description" content="{e(p['description'])}">
-<link rel="canonical" href="{SITE}/hojyo/{p['slug']}.html">
+<link rel="canonical" href="{SITE}/hojyo/{p['slug']}">
 <meta property="og:title" content="{e(p['title'])}"><meta property="og:description" content="{e(p['description'])}"><meta property="og:type" content="article"><meta property="og:url" content="{SITE}/hojyo/{p['slug']}.html">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(bc, ensure_ascii=False)}</script>
@@ -196,7 +196,7 @@ def page(p):
 
 
 def index_page():
-    items = "".join(f'<a href="/hojyo/{p["slug"]}.html">{e(p["title"])}<span>{e(p["catch"])}</span></a>' for p in PROGRAMS)
+    items = "".join(f'<a href="/hojyo/{p["slug"]}">{e(p["title"])}<span>{e(p["catch"])}</span></a>' for p in PROGRAMS)
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>東京都の住まい・省エネ補助金まとめ(令和8年度)|補助金サーチ東京</title>
@@ -215,13 +215,9 @@ def index_page():
 for p in PROGRAMS:
     open(os.path.join(PUB, "hojyo", f"{p['slug']}.html"), "w").write(page(p))
 open(os.path.join(PUB, "hojyo", "index.html"), "w").write(index_page())
-urls = [SITE + "/", SITE + "/hojyo/"] + [f"{SITE}/hojyo/{p['slug']}.html" for p in PROGRAMS]
+urls = [SITE + "/", SITE + "/hojyo/"] + [f"{SITE}/hojyo/{p['slug']}" for p in PROGRAMS]
 sm = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{u}</loc><lastmod>{CHECKED}</lastmod></url>\n" for u in urls) + "</urlset>\n")
 open(os.path.join(PUB, "sitemap.xml"), "w").write(sm)
-# vercel.json が /sitemap.xml を /api/sitemap.xml に転送しているので、APIルートも同じ内容で生成する
-open(os.path.join(os.path.dirname(PUB), "api", "sitemap.xml.js"), "w").write(
-    "// public/sitemap.xml と同じ内容(tools/build.py が両方を生成)\nexport default function handler(req, res) {\n"
-    "  res.setHeader('Content-Type', 'application/xml; charset=utf-8');\n  res.status(200).send(`" + sm + "`);\n}\n")
 open(os.path.join(PUB, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 print("生成:", len(PROGRAMS), "ページ + 一覧 + sitemap.xml + robots.txt")

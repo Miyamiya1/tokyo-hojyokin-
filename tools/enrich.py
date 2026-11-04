@@ -6,7 +6,7 @@ D = os.path.join(os.path.dirname(__file__), "..", "data")
 S = json.load(open(os.path.join(D, "subsidies_snapshot.json")))
 OUT = os.path.join(D, "enriched.json")
 done = {x["id"]: x for x in json.load(open(OUT))} if os.path.exists(OUT) else {}
-UA = {"User-Agent": "Mozilla/5.0 (compatible; hojyokin-search/1.0; +https://tokyo-hojyokin.vercel.app)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; hojyokin-search/1.0; +https://tokyo-hojyokin.pages.dev)"}
 
 def text_of(raw):
     raw = re.sub(r"(?is)<(script|style|noscript|header|footer|nav)[^>]*>.*?</\1>", " ", raw)
