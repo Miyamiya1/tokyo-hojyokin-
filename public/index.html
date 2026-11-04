@@ -22,7 +22,6 @@ header p { font-size: 14px; opacity: 0.8; margin-top: 4px; }
 select, input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: white; }
 input { flex: 1; min-width: 200px; }
 .count { padding: 10px 20px; font-size: 13px; color: #666; }
-.counter { font-size: 13px; color: #666; padding: 10px 20px; text-align: right; }
 .meta { display: flex; justify-content: space-between; align-items: center; }
 .cards { padding: 0 20px 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 .card { background: white; border-radius: 12px; padding: 16px; border: 1px solid #eee; transition: box-shadow 0.2s; }
@@ -68,14 +67,13 @@ input { flex: 1; min-width: 200px; }
 </div>
 <div class="meta">
   <div class="count" id="count"></div>
-  <div class="counter">これまで <span id="access-count">...</span> 人が利用</div>
 </div>
 <div class="cards" id="cards"><div class="loading">読み込み中...</div></div>
 <script>
 let all = [];
 
 async function load() {
-  const res = await fetch('/api/subsidies');
+  const res = await fetch('/subsidies.json');
   all = await res.json();
   const areas = [...new Set(all.map(d => d.area).filter(Boolean))].sort();
   const sel = document.getElementById('area');
@@ -111,13 +109,6 @@ function render() {
 
 ['search','target','category','area'].forEach(id => document.getElementById(id).addEventListener('input', render));
 
-(async () => {
-  try {
-    const res = await fetch('/api/count', { method: 'POST' });
-    const data = await res.json();
-    document.getElementById('access-count').textContent = data.count.toLocaleString();
-  } catch(e) {}
-})();
 
 load();
 </script>
