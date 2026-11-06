@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓄電池は何年で元が取れる？かんたん計算｜補助金サーチ東京</title>
+<meta name="description" content="太陽光発電がある家向けに、蓄電池の費用、東京都の補助金、電気代から回収年数の目安を計算できる無料ツールです。">
+<link rel="canonical" href="https://tokyo-hojyokin.pages.dev/tools/chikudenchi-kaishu">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','Hiragino Sans',sans-serif;background:#f5f5f5;color:#333;line-height:1.8}
+header{background:#1a5276;color:#fff;padding:16px 20px}header a{color:#fff;text-decoration:none;font-weight:600}
+main{max-width:820px;margin:0 auto;padding:20px}nav.crumb{font-size:12px;color:#666;margin-bottom:12px}nav.crumb a{color:#1a5276}
+h1{font-size:22px;line-height:1.5;margin-bottom:6px}.catch{font-size:16px;color:#1a5276;font-weight:600;margin-bottom:16px}
+.box{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:16px 20px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:8px 6px;border-bottom:1px solid #eee;font-size:14px}th{width:28%;color:#1a5276;white-space:nowrap}
+h2{font-size:17px;margin:4px 0 8px;color:#1a5276}ul{padding-left:1.2em}li{font-size:14px;margin:2px 0}
+.src{font-size:13px;color:#555}.src a{color:#1a5276}.note{font-size:12px;color:#777}
+.pr{display:inline-block;font-size:11px;color:#777;border:1px solid #bbb;border-radius:4px;padding:0 6px;margin-bottom:4px}.ad ul{padding-left:0}.ad li{list-style:none;margin:6px 0}.ad a{color:#1a5276;font-weight:600}
+.btn{display:inline-block;background:#1a5276;color:#fff;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px}
+.list a{display:block;padding:10px 0;border-bottom:1px solid #eee;color:#1a5276;text-decoration:none}.list span{display:block;font-size:13px;color:#555}
+footer{max-width:820px;margin:0 auto;padding:20px;font-size:12px;color:#777}</style></head><body>
+<header><a href="/">🔍 補助金サーチ東京</a></header>
+<main>
+<nav class="crumb"><a href="/">トップ</a> › 蓄電池の元が取れるか計算</nav>
+<h1>蓄電池は何年で元が取れる？かんたん計算</h1>
+<p class="catch">太陽光発電がある家向けに、費用・補助金・電気代から回収年数の目安を計算します</p>
+<p class="note">※このページにはアフィリエイト広告(PR)が含まれます。</p>
+<section class="box" id="calc">
+<style>#calc label{display:block;font-size:14px;margin-top:12px;font-weight:600}#calc input[type=number]{width:100%;padding:10px;font-size:16px;border:1px solid #ccc;border-radius:6px;margin-top:4px}#calc .chk{font-weight:400;display:flex;gap:8px;align-items:center}#calc .hint{font-size:12px;color:#666;font-weight:400}#res{margin-top:16px;padding:14px;background:#f0f7ff;border-radius:8px}#res .big{font-size:26px;font-weight:700;color:#1a5fb4}#res table{margin-top:8px;font-size:14px}</style>
+<label>本体と工事の合計費用（税抜・円）<input id="cost" type="number" min="0" step="10000" value="1500000"><span class="hint">見積もりの金額に変えてください。初期値は入力例です。</span></label>
+<label>蓄電容量（kWh）<input id="cap" type="number" min="0" step="0.1" value="10"></label>
+<label class="chk"><input id="tokyo" type="checkbox" checked>東京都の補助金を計算に入れる（1kWhあたり10万円、上限120万円）</label>
+<label>そのほかの補助金（円）<input id="other" type="number" min="0" step="10000" value="0"><span class="hint">区市町村の補助金などがあれば入れてください。</span></label>
+<label>1日に蓄電池から使う電気（kWh）<input id="daily" type="number" min="0" step="0.5" value="6"><span class="hint">夜に使う電気の量の見込みです。容量より小さくなることが多いです。</span></label>
+<label>電気を買う単価（円/kWh）<input id="buy" type="number" min="0" step="1" value="30"><span class="hint">検針票の金額に変えてください。初期値は入力例です。</span></label>
+<label>電気を売る単価（円/kWh）<input id="sell" type="number" min="0" step="1" value="8"><span class="hint">売電契約の単価に変えてください。初期値は入力例です。</span></label>
+<label>使う年数（年）<input id="life" type="number" min="1" step="1" value="15"><span class="hint">保証年数を参考に入れてください。初期値は仮の数字です。</span></label>
+<div id="res" aria-live="polite"></div>
+</section>
+<section class="box"><h2>計算のしかた</h2><ul>
+<li>補助金：東京都の分は「容量×10万円」「120万円」「税抜費用」のうち一番小さい額です。そのほかの補助金を入れた場合は、費用からその額を引いた額も上限にしています</li>
+<li>1年の節約額：365日 ×（使う電気 × 買う単価 − 充電に使う電気 × 売る単価）</li>
+<li>充電に使う電気は、使う電気 ÷ 0.9 としています（変換の損失を10%と仮定）</li>
+<li>電気代の値上がり、蓄電池の劣化、停電への備えの価値は入れていません</li>
+</ul><p class="note">この計算は目安です。実際の節約額は、発電量、使い方、料金プランで変わります。東京都の補助金には、対象機器などの条件があります。必ず<a href="/hojyo/tokyo-chikudenchi-r8">補助金の詳しいページ</a>と公式情報を確認してください。</p></section>
+<section class="box ad"><span class="pr">PR</span><h2>実際の費用は見積もりで確かめる</h2><p style="font-size:14px">回収年数は費用で大きく変わります。複数の業者の見積もりを無料で比べられるサービスがあります。</p><ul><li><a href="https://px.a8.net/svt/ejp?a8mat=4BGBN3+FH9R02+2AG2+15S78I" rel="nofollow">蓄電池の無料一括比較サイト【タイナビ蓄電池】</a><img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=4BGBN3+FH9R02+2AG2+15S78I" alt=""></li><li><a href="https://px.a8.net/svt/ejp?a8mat=4BGBN3+FGOBEA+5CRG+5YJRM" rel="nofollow">【エコ×エネの相談窓口】完全無料の蓄電池一括見積もり</a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4BGBN3+FGOBEA+5CRG+5YJRM" alt=""></li></ul><p class="note">※広告リンクです。補助金の対象になる機器・工事か、申請に必要な書類を用意してもらえるかは、見積もりのときに業者へ確認してください。</p></section>
+<script>
+(function(){var ids=['cost','cap','other','daily','buy','sell','life'],tk=document.getElementById('tokyo'),res=document.getElementById('res');
+function n(i){var v=parseFloat(document.getElementById(i).value);return isFinite(v)&&v>0?v:0}
+function yen(v){return Math.round(v).toLocaleString('ja-JP')+'円'}
+function calc(){var c=n('cost'),cap=n('cap'),o=Math.min(n('other'),c),d=n('daily'),b=n('buy'),s=n('sell'),l=n('life');
+var t=tk.checked?Math.min(cap*100000,1200000,Math.max(c-o,0)):0;var net=Math.max(c-o-t,0);var y=365*(d*b-(d/0.9)*s);
+var h;if(y<=0){h='<div>使う電気の量や単価を確認してください。この条件では節約になりません。</div>'}else{var yr=net/y;var tot=y*l-net;
+h='<div>回収の目安</div><div class="big">約'+yr.toFixed(1)+'年</div><table><tr><th>補助金の合計</th><td>'+yen(t+o)+'</td></tr><tr><th>実質の負担</th><td>'+yen(net)+'</td></tr><tr><th>1年の節約額</th><td>'+yen(y)+'</td></tr><tr><th>'+l+'年間の差し引き</th><td>'+(tot>=0?'＋':'−')+yen(Math.abs(tot))+'</td></tr></table>'}
+res.innerHTML=h}
+ids.forEach(function(i){document.getElementById(i).addEventListener('input',calc)});tk.addEventListener('change',calc);calc()})();
+</script>
+</main>
+<footer>補助金サーチ東京 | 掲載内容の正確性には注意していますが、最終的な判断は公式情報に基づいて行ってください。</footer>
+</body></html>

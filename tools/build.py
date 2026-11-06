@@ -167,6 +167,8 @@ def page(p):
           f'<ul>{"".join(f"<li>{x}</li>" for x in links)}</ul>'
           '<p class="note">※広告リンクです。補助金の対象になる機器・工事か、申請に必要な書類を用意してもらえるかは、見積もりのときに業者へ確認してください。</p></section>') if links else ""
     related = "".join(f'<a href="/hojyo/{q["slug"]}">{e(q["title"])}<span>{e(q["catch"])}</span></a>' for q in PROGRAMS if q["slug"] != p["slug"])
+    if p["slug"] == "tokyo-chikudenchi-r8":
+        related = '<a href="/tools/chikudenchi-kaishu">蓄電池は何年で元が取れる？かんたん計算<span>費用と補助金から回収年数の目安を計算</span></a>' + related
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(p['title'])}|{e(p['catch'])}|補助金サーチ東京</title>
@@ -219,6 +221,7 @@ for p in PROGRAMS:
 open(os.path.join(PUB, "hojyo", "index.html"), "w").write(index_page())
 urls = [SITE + "/", SITE + "/hojyo/"] + [f"{SITE}/hojyo/{p['slug']}" for p in PROGRAMS]
 urls.append(SITE + "/business/hito-ga-torenai")  # 手書きの事業者向けページ
+urls.append(SITE + "/tools/chikudenchi-kaishu")  # 手書きの計算ツール
 sm = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{u}</loc><lastmod>{date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")
 open(os.path.join(PUB, "sitemap.xml"), "w").write(sm)
