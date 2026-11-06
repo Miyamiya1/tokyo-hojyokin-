@@ -166,12 +166,13 @@ def page(p):
     ad = (f'<section class="box ad"><span class="pr">PR</span><h2>工事の前に見積もりを比べる</h2><p style="font-size:14px">{e(AD_LEAD[kind])}</p>'
           f'<ul>{"".join(f"<li>{x}</li>" for x in links)}</ul>'
           '<p class="note">※広告リンクです。補助金の対象になる機器・工事か、申請に必要な書類を用意してもらえるかは、見積もりのときに業者へ確認してください。</p></section>') if links else ""
+    related = "".join(f'<a href="/hojyo/{q["slug"]}">{e(q["title"])}<span>{e(q["catch"])}</span></a>' for q in PROGRAMS if q["slug"] != p["slug"])
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(p['title'])}|{e(p['catch'])}|補助金サーチ東京</title>
 <meta name="description" content="{e(p['description'])}">
 <link rel="canonical" href="{SITE}/hojyo/{p['slug']}">
-<meta property="og:title" content="{e(p['title'])}"><meta property="og:description" content="{e(p['description'])}"><meta property="og:type" content="article"><meta property="og:url" content="{SITE}/hojyo/{p['slug']}.html">
+<meta property="og:title" content="{e(p['title'])}"><meta property="og:description" content="{e(p['description'])}"><meta property="og:type" content="article"><meta property="og:url" content="{SITE}/hojyo/{p['slug']}">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(bc, ensure_ascii=False)}</script>
 <style>{CSS}</style></head><body>
@@ -185,6 +186,7 @@ def page(p):
 {secs}
 <section class="box"><h2>問い合わせ先</h2><p style="font-size:14px">{e(p['contact'])}</p></section>
 {ad}
+<section class="box list"><h2>あわせて読みたい</h2>{related}<a href="/hojyo/">住まい・省エネ補助金の一覧<span>東京都の補助金をまとめて見る</span></a></section>
 <section class="box src"><h2>出典・最終確認日</h2>
 <p>出典:<a href="{e(p['official_url'])}" target="_blank" rel="noopener">{e(p['official_name'])}({e(p['org'])})</a></p>
 <p>最終確認日:{CHECKED}</p>
@@ -218,7 +220,7 @@ open(os.path.join(PUB, "hojyo", "index.html"), "w").write(index_page())
 urls = [SITE + "/", SITE + "/hojyo/"] + [f"{SITE}/hojyo/{p['slug']}" for p in PROGRAMS]
 urls.append(SITE + "/business/hito-ga-torenai")  # 手書きの事業者向けページ
 sm = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    "".join(f"  <url><loc>{u}</loc><lastmod>{CHECKED}</lastmod></url>\n" for u in urls) + "</urlset>\n")
+    "".join(f"  <url><loc>{u}</loc><lastmod>{date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")
 open(os.path.join(PUB, "sitemap.xml"), "w").write(sm)
 open(os.path.join(PUB, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 print("生成:", len(PROGRAMS), "ページ + 一覧 + sitemap.xml + robots.txt")
