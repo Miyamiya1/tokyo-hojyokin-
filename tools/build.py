@@ -216,6 +216,7 @@ for p in PROGRAMS:
     open(os.path.join(PUB, "hojyo", f"{p['slug']}.html"), "w").write(page(p))
 open(os.path.join(PUB, "hojyo", "index.html"), "w").write(index_page())
 urls = [SITE + "/", SITE + "/hojyo/"] + [f"{SITE}/hojyo/{p['slug']}" for p in PROGRAMS]
+urls.append(SITE + "/business/hito-ga-torenai")  # 手書きの事業者向けページ
 sm = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{u}</loc><lastmod>{CHECKED}</lastmod></url>\n" for u in urls) + "</urlset>\n")
 open(os.path.join(PUB, "sitemap.xml"), "w").write(sm)
