@@ -177,7 +177,7 @@ def page(p):
 <meta property="og:title" content="{e(p['title'])}"><meta property="og:description" content="{e(p['description'])}"><meta property="og:type" content="article"><meta property="og:url" content="{SITE}/hojyo/{p['slug']}">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(bc, ensure_ascii=False)}</script>
-<style>{CSS}</style></head><body>
+<style>{CSS}</style><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "3643ea9fceef467fb1d28dcebb6fb757"}}'></script></head><body>
 <header><a href="/">🔍 補助金サーチ東京</a></header>
 <main>
 <nav class="crumb"><a href="/">トップ</a> › <a href="/hojyo/">住まい・省エネの補助金</a> › {e(p['title'])}</nav>
@@ -206,7 +206,7 @@ def index_page():
 <title>東京都の住まい・省エネ補助金まとめ(令和8年度)|補助金サーチ東京</title>
 <meta name="description" content="東京都の住まい・省エネに関する令和8年度の補助金を、公式情報をもとにまとめました。蓄電池、窓・ドアの断熱リフォーム、断熱材・高断熱浴槽など。">
 <link rel="canonical" href="{SITE}/hojyo/">
-<style>{CSS}</style></head><body>
+<style>{CSS}</style><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "3643ea9fceef467fb1d28dcebb6fb757"}}'></script></head><body>
 <header><a href="/">🔍 補助金サーチ東京</a></header>
 <main><nav class="crumb"><a href="/">トップ</a> › 住まい・省エネの補助金</nav>
 <h1>東京都の住まい・省エネ補助金(令和8年度)</h1>
